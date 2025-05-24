@@ -30,6 +30,11 @@ def gen_win_probability():
         win_prob -= 5
     win_prob -= (15 - win_con_level) * 5
     win_prob += (win_percentage - 50) * 5
+    win = np.random.randint(0, 101)
+    if win < win_prob:
+        win = 0
+    else:
+        win = 1
 
     win = {
         "Trophy_Count" : trophy_count,
@@ -41,5 +46,6 @@ def gen_win_probability():
         "Average_Elixir_Cost" : avg_elixir_cost,
         "Win_Condition_Level" : win_con_level,
         "Win_Probability" : win_prob,
+        "Win": win
     }
     return win
