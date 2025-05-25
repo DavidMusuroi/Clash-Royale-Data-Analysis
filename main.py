@@ -3,7 +3,8 @@ from sklearn.model_selection import train_test_split
 from determine_win import gen_win
 from find_and_elim_missing_values import elim_missing_values
 from plots import get_histogram, get_countplot, get_outliers, get_heatmap, get_violin_plot
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import accuracy_score, confusion_matrix
 
 # Generez aleatoriu 1000 de numere pt cele 10 coloane
 win = []
@@ -63,6 +64,12 @@ get_violin_plot(test_data_frame, 1)
 X_train, y_train = train_data_frame.drop(columns = ["Win"]), train_data_frame["Win"]
 X_test, y_test = test_data_frame.drop(columns = ["Win"]), test_data_frame["Win"]
 X_train, X_test = pd.get_dummies(X_train), pd.get_dummies(X_test)
-rand_forest = RandomForestRegressor(random_state = 42)
+rand_forest = RandomForestClassifier(random_state = 42)
 rand_forest.fit(X_train, y_train)
 y_predict = rand_forest.predict(X_test)
+
+accuracy = accuracy_score(y_test, y_predict)
+print("The accuracy of the model is: ", accuracy)
+
+#cm = confusion_matrix(y_test, y_predict)
+#print(cm)
