@@ -2,8 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from determine_win import gen_win
 from find_and_elim_missing_values import elim_missing_values
-import seaborn as sns
-import matplotlib.pyplot as plt
+from graphs import get_histogram, get_countplot, get_outliers, get_heatmap, get_violin_plot
 
 # Generez aleatoriu 1000 de numere pt cele 10 coloane
 win = []
@@ -31,18 +30,30 @@ test_data_frame.to_csv("Clash_Royale_Test_Removed_Missing_Values.csv", index = F
 train_data_frame = pd.read_csv("Clash_Royale_Train_Removed_Missing_Values.csv")
 test_data_frame = pd.read_csv("Clash_Royale_Test_Removed_Missing_Values.csv")
 
-print("\n")
+print("\nStatistici descriptive:")
 print(train_data_frame.describe(include = [float, int, 'category']))
 print("\n")
 print(test_data_frame.describe(include = [float, int, 'category']))
 print("\n")
 
-numerical_charact = ["Trophy_Count", "Current_Win_Streak", "Win_Percentage", "Average_Elixir_Cost", "Win_Condition_Level", "Win_Probability"]
-for i in numerical_charact:
-    plt.figure(figsize = (6, 4))
-    sns.histplot(train_data_frame[i], kde = True, bins = 30, color = 'blue')
-    plt.title(f"{i}")
-    plt.xlabel(i)
-    plt.ylabel("Frequency")
-    plt.savefig(f"{i}.jpg")
-    plt.close()
+# 0 pentru train si 1 pentru test; jpg pentru histograma si png pentru countplot
+
+# Histograma pentru caracteristici numerice
+get_histogram(train_data_frame, 0)
+get_histogram(test_data_frame, 1)
+
+# Countplot pentru variabilele categorice
+get_countplot(train_data_frame, 0)
+get_countplot(test_data_frame, 1)
+
+# Boxplot pentru valorile aberante
+get_outliers(train_data_frame, 0)
+get_outliers(test_data_frame, 1)
+
+# Heatmap pentru variabilele numerice
+get_heatmap(train_data_frame, 0)
+get_heatmap(test_data_frame, 1)
+
+# Violinplot pentru win si variabilele de care depinde
+get_violin_plot(train_data_frame, 0)
+get_violin_plot(test_data_frame, 1)
