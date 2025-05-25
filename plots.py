@@ -66,7 +66,7 @@ def get_violin_plot(data_frame, choice):
         plt.title("f{i}")
         plt.tight_layout()
         if choice == 0:
-            plt.savefig(f"ViolinPlot_{i}.jpg")
+            plt.savefig(f"ViolinPlot_{i}_train.jpg")
         elif choice == 1:
-            plt.savefig(f"ViolinPlot_{i}.jpg")
+            plt.savefig(f"ViolinPlot_{i}_test.jpg")
         plt.close()
