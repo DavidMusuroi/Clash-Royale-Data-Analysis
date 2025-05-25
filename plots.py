@@ -50,7 +50,7 @@ def get_heatmap(data_frame, choice):
     cm = data_frame.corr(numeric_only = True)
     plt.figure(figsize = (10, 5))
     sns.heatmap(cm, annot = True, fmt = '.2f', cmap = 'Blues')
-    plt.title("Matricea de confuzie (MNIST)")
+    plt.title("Matricea de corelatii (heatmap)")
     plt.tight_layout()
     if choice == 0:
         plt.savefig("Heatmap_train.jpg")
