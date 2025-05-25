@@ -16,6 +16,7 @@ def gen_win():
     win_con_level = np.random.randint(11, 16)
     win = np.random.randint(0, 101)
 
+    # Calculez probabilitatea de castig
     win_prob += 0.005 * trophy_count
     win_prob += 2 * crt_win_streak
     if crt_play_style == "aggressive" or crt_play_style == "defensive":
@@ -31,7 +32,7 @@ def gen_win():
         win_prob += (win_percentage - 50) * 2
     win_prob = round(win_prob, 2)
 
-
+    # Determin daca jucatorul a castigat sau nu
     if win < win_prob:
         win = 0
     else:
