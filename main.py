@@ -2,7 +2,8 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from determine_win import gen_win
 from find_and_elim_missing_values import elim_missing_values
-from graphs import get_histogram, get_countplot, get_outliers, get_heatmap, get_violin_plot
+from plots import get_histogram, get_countplot, get_outliers, get_heatmap, get_violin_plot
+from sklearn.ensemble import RandomForestRegressor
 
 # Generez aleatoriu 1000 de numere pt cele 10 coloane
 win = []
@@ -57,3 +58,11 @@ get_heatmap(test_data_frame, 1)
 # Violinplot pentru win si variabilele de care depinde
 get_violin_plot(train_data_frame, 0)
 get_violin_plot(test_data_frame, 1)
+
+# Random Forest cu One-Hot Encoding pentru variabilele categorice
+X_train, y_train = train_data_frame.drop(columns = ["Win"]), train_data_frame["Win"]
+X_test, y_test = test_data_frame.drop(columns = ["Win"]), test_data_frame["Win"]
+X_train, X_test = pd.get_dummies(X_train), pd.get_dummies(X_test)
+rand_forest = RandomForestRegressor(random_state = 42)
+rand_forest.fit(X_train, y_train)
+y_predict = rand_forest.predict(X_test)
