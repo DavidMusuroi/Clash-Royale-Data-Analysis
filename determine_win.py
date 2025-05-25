@@ -2,7 +2,7 @@ import random
 import numpy as np
 
 def gen_win():
-    # Cele 9 coloane
+    # Cele 10 coloane
     win_prob = 0
     trophy_count = np.random.randint(1000, 9001)
     crt_win_streak = np.random.randint(0, 21)
@@ -14,7 +14,7 @@ def gen_win():
     win_percentage = round(np.random.uniform(40.0, 60.0), 2)
     avg_elixir_cost = round(np.random.uniform(2.0, 7.0), 1)
     win_con_level = np.random.randint(11, 16)
-
+    win = np.random.randint(0, 101)
 
     win_prob += 0.005 * trophy_count
     win_prob += 2 * crt_win_streak
@@ -35,7 +35,6 @@ def gen_win():
     win_prob = round(win_prob, 2)
 
 
-    win = np.random.randint(0, 101)
     if win < win_prob:
         win = 0
     else:
