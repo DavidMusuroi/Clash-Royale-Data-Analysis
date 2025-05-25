@@ -24,14 +24,11 @@ def gen_win():
         win_prob += 10
     if has_evo_unlocked:
         win_prob += 5
-    else:
-        win_prob -= 5
     if avg_elixir_cost <= 4.0:
         win_prob += 5
-    elif avg_elixir_cost > 4.0:
-        win_prob -= 5
-    win_prob -= (15 - win_con_level) * 5
-    win_prob += (win_percentage - 50) * 2
+    win_prob += (15 - win_con_level)
+    if win_percentage >= 50:
+        win_prob += (win_percentage - 50) * 2
     win_prob = round(win_prob, 2)
 
 
