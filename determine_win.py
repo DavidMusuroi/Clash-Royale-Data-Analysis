@@ -1,12 +1,12 @@
 import random
 import numpy as np
 
-def gen_win_probability():
+def gen_win():
     # Cele 9 coloane
     win_prob = 0
     trophy_count = np.random.randint(1000, 9001)
     crt_win_streak = np.random.randint(0, 21)
-    win_cons = ["Lava Hound", "Golem", "P.E.K.K.A", "Mega Knight", "Royal Giant", "X-Bow", "Hog Rider", "Wall Breakers", "Goblin Barrel", "Graveyard", "Royal Hogs", "Elixir Golem", "Royal Recruits", "Giant Skeleton", "Goblin Drill"]
+    win_cons = ["Lava Hound", "Golem", "P.E.K.K.A", "Mega Knight", "Royal Giant", "X-Bow", "Hog Rider", "Wall Breakers", "Goblin Barrel", "Graveyard", "Royal Hogs", "Elixir Golem", "Royal Recruits", "Giant Skeleton", "Goblin Drill", "N.A."]
     crt_fav_win_con = random.choice(win_cons)
     play_style = ["aggressive", "passive", "balanced"]
     crt_play_style = random.choice(play_style)
@@ -14,22 +14,27 @@ def gen_win_probability():
     win_percentage = round(np.random.uniform(40.0, 60.0), 2)
     avg_elixir_cost = round(np.random.uniform(2.0, 7.0), 1)
     win_con_level = np.random.randint(11, 16)
+
+
     win_prob += 0.005 * trophy_count
     win_prob += 2 * crt_win_streak
     if crt_play_style == "aggressive" or crt_play_style == "defensive":
-        win_prob += 10
+        win_prob += 5
     elif crt_play_style == "balanced":
-        win_prob += 20
+        win_prob += 10
     if has_evo_unlocked:
-        win_prob += 20
+        win_prob += 5
     else:
         win_prob -= 5
     if avg_elixir_cost <= 4.0:
-        win_prob += 20
+        win_prob += 5
     elif avg_elixir_cost > 4.0:
         win_prob -= 5
     win_prob -= (15 - win_con_level) * 5
-    win_prob += (win_percentage - 50) * 5
+    win_prob += (win_percentage - 50) * 2
+    win_prob = round(win_prob, 2)
+
+
     win = np.random.randint(0, 101)
     if win < win_prob:
         win = 0
