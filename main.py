@@ -73,7 +73,9 @@ y_predict = rand_forest.predict(X_test)
 
 # Determinarea acuratetei
 accuracy = accuracy_score(y_test, y_predict)
-print("The accuracy of the model is: ", accuracy)
+accuracy = 100 * accuracy
+accuracy = round(accuracy, 2)
+print(f"The accuracy of the model is: {accuracy}%")
 
 # Determinarea matricei de confuzie
 cm = confusion_matrix(y_test, y_predict)
