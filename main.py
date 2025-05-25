@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from determine_win import gen_win
 from find_and_elim_missing_values import elim_missing_values
-from plots import get_histogram, get_countplot, get_outliers, get_heatmap, get_violin_plot
+from plots import *
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix
 
@@ -11,6 +11,7 @@ win = []
 for i in range(1000):
     win.append(gen_win())
 
+# Creez dataframe-ul initial
 data_frame = pd.DataFrame(win)
 train, test = train_test_split(data_frame, train_size = 700, test_size = 300, random_state = 42, shuffle = True)
 train.to_csv("Clash_Royale_train.csv", index = False)
@@ -18,7 +19,7 @@ test.to_csv("Clash_Royale_test.csv", index = False)
 train_data_frame = pd.read_csv("Clash_Royale_train.csv")
 test_data_frame = pd.read_csv("Clash_Royale_test.csv")
 
-
+# Elimin valorile lipsa
 m, n = train_data_frame.shape
 p, q = test_data_frame.shape
 train_data_frame, missing1 = elim_missing_values(train_data_frame)
@@ -27,18 +28,20 @@ print("Valorile lipsa din dataframe-ul de training sunt in numar de", missing1, 
 print("Valorile lipsa din dataframe-ul de testing sunt in numar de", missing2, ",ceea ce reprezinta", round(missing2 * 100 / p, 2), "% din totalul de", p)
 
 
+# Pun valorile dupa eliminare in csv-uri noi
 train_data_frame.to_csv("Clash_Royale_Train_Removed_Missing_Values.csv", index = False)
 test_data_frame.to_csv("Clash_Royale_Test_Removed_Missing_Values.csv", index = False)
 train_data_frame = pd.read_csv("Clash_Royale_Train_Removed_Missing_Values.csv")
 test_data_frame = pd.read_csv("Clash_Royale_Test_Removed_Missing_Values.csv")
 
+# Determinarea statisticilor descriptive
 print("\nStatistici descriptive:")
 print(train_data_frame.describe(include = [float, int, 'category']))
 print("\n")
 print(test_data_frame.describe(include = [float, int, 'category']))
 print("\n")
 
-# 0 pentru train si 1 pentru test; jpg pentru histograma si png pentru countplot
+# 0 pentru train si 1 pentru test;
 
 # Histograma pentru caracteristici numerice
 get_histogram(train_data_frame, 0)
@@ -68,8 +71,16 @@ rand_forest = RandomForestClassifier(random_state = 42)
 rand_forest.fit(X_train, y_train)
 y_predict = rand_forest.predict(X_test)
 
+# Determinarea acuratetei
 accuracy = accuracy_score(y_test, y_predict)
 print("The accuracy of the model is: ", accuracy)
 
-#cm = confusion_matrix(y_test, y_predict)
-#print(cm)
+# Determinarea matricei de confuzie
+cm = confusion_matrix(y_test, y_predict)
+plt.figure(figsize = (10, 5))
+sns.heatmap(cm, annot = True, fmt = 'd', cmap = 'Blues', xticklabels = ["Lose", "Win"], yticklabels = ["Lose", "Win"])
+plt.title("Confusion Matrix (MNIST)")
+plt.xlabel("Predicted Label")
+plt.ylabel("Real Label")
+plt.tight_layout()
+plt.savefig("Confusion Matrix.jpg")
