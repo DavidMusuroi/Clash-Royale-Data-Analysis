@@ -1,35 +1,33 @@
-Musuroi David-Gabriel Seria CC Grupa 311
+In order for the program to run, you must have the virtual environment set up :
 
-In functia determine_win.py determin modul de constructie al datelor, el fiind
-furnizat in felul urmator : am extras la intamplare cateva aspecte care mi s-au
-parut relevante pentru determinarea probabilitatii unui jucator de a castiga un
-meci (numarul de trofee, win streak-ul, etc.) si am dezvoltat o formula 
-aleatorie pentru a determina aceasta probabilitate, maximul posibil fiind 130%
-din 100% (pentru a avea si date incorecte, din nou, pentru a le elimina).
-Jucatorul a castigat daca un numar generat aleatoriu este mai mic decat
-probabilitatea de a castiga, iar in caz contrar a pierdut. La final returnez un
-dictionar cu toate cele 10 coloane.
+python3 -m venv .
+source ./bin/activate
 
-In functia main am generat aleatoriu 10 coloane pentru 1000 de instante, pe
-care le-am impartit in felul urmator : 700 pentru antrenare si 300 pentru
-testare, ambele generate la intamplare, si le-am pus in 2 csv-uri diferite.
-Dupa aceea, am eliminat valorile lipsa (probabilitatea de castig mai mare ca 
-100 sau cazul in care Favourite_Win_Condition este N.A. --> not available, o
-eroare introdusa de mine pentru a ma asigura ca exista mai multe date pe care
-le pot elimina) si am exportat si aceste subseturi in format csv.
+In order to exit it, just type deactivate in the terminal
 
-In continuare, am determinat statisticile descriptive folosind functia describe
-si am realizat histograma, countplot-ul, boxplot-ul si violinplot-ul intr-o
-alta functie plots.py pentru variabilele corespunzatoare cerintei date, pe
-care nu am putut sa le afisez asa ca le-am salvat ca poze cu extensia .jpg.
+In the determine_win.py function, I defined the data generation logic. I randomly
+selected several features that I considered relevant for estimating a player’s
+win probability — such as trophy count, current win streak, and others — and
+developed a random formula to compute this probability. The maximum possible value
+was intentionally set to 130%, exceeding 100%, to introduce inconsistent
+data points that could later be removed. A player is considered to have won if a
+randomly generated number is lower than their win probability, and to have lost
+otherwise. The function returns a dictionary containing all ten columns of data.
 
-Tot in main, fiind o problema de clasificare, am folosit Random Forest pentru
-a antrena subsetul de antrenare si pentru a evalua subsetul de testare, cu
-precizarea ca pentru variabilele categorice am folosit One Hot Encoding, astfel
-determinand acuratetea modelului. La final am realizat matricea de confuzie pe
-care am salvat-o tot ca poza cu extensia .jpg.
+In the main function, I generated random values for the ten columns across 1,000
+instances, splitting them into 700 training samples and 300 testing samples, both
+randomly selected. These subsets were saved into separate CSV files. Next, I
+removed missing or invalid values — specifically cases where the win probability
+exceeded 100%, or where the Favourite_Win_Condition column was "N.A.", an error
+intentionally introduced to simulate missing data — and exported the cleaned 
+subsets to new CSV files.
 
-Referitor la grafice nu se pot spune multe lucruri despre ele, intrucat
-cum toata implementarea a fost realizata folosind biblioteca random, fiecare
-rulare a programului va rezulta in alte date, alta acuratete, alta matrice de
-confuzie etc. asa ca programul trebuie analizat in parte pentru fiecare rulare.
+Afterward, I computed descriptive statistics using the describe() function and
+created histograms, count plots, box plots, and violin plots within the plots.py
+module for the relevant variables. Since they could not be displayed directly,
+I saved them as .jpg images.
+
+Finally, in the main function, I used a Random Forest classifier to train on the
+training subset and evaluate the testing subset, as this was a classification problem.
+Categorical variables were encoded using One-Hot Encoding, allowing me to determine the
+model’s accuracy. I then generated a confusion matrix, which I also saved as a .jpg image.
