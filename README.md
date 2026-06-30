@@ -9,6 +9,7 @@ This project generates synthetic data related to player performance and win prob
 Create and activate a virtual environment:
 
 python3 -m venv venv
+
 source venv/bin/activate
 
 In order to exit it, just type deactivate in the terminal
