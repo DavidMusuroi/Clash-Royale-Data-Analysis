@@ -13,6 +13,10 @@ source venv/bin/activate
 
 In order to exit it, just type deactivate in the terminal
 
+---
+
+## Project Workflow
+
 In the determine_win.py function, I defined the data generation logic. I randomly
 selected several features that I considered relevant for estimating a player’s
 win probability — such as trophy count, current win streak, and others — and
