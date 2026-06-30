@@ -1,7 +1,15 @@
-In order for the program to run, you must have the virtual environment set up :
+# Project Overview
 
-python3 -m venv .
-source ./bin/activate
+This project generates synthetic data related to player performance and win probability, performs data cleaning, visualization, and applies a machine learning model (Random Forest) to predict match outcomes.
+
+---
+
+## Setup
+
+Create and activate a virtual environment:
+
+python3 -m venv venv
+source venv/bin/activate
 
 In order to exit it, just type deactivate in the terminal
 
