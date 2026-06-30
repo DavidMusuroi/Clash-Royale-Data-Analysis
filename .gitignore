@@ -11,3 +11,6 @@ ENV/
 
 # Jupyter
 .ipynb_checkpoints/
+
+# Environment variables
+.env
